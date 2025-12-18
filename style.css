@@ -12,6 +12,30 @@ html[data-theme="light"]{
 
 }
 
+html[data-theme="light"]{
+  --bg: #f3f4f6;        /* 背景は真っ白にしない */
+  --card: #ffffff;     /* カードは白 */
+  --text: #111827;
+  --muted: #6b7280;
+  --line: #e5e7eb;
+
+  --shadow: 0 8px 24px rgba(0,0,0,.06);
+}
+
+html[data-theme="light"] .card{
+  box-shadow: var(--shadow);
+  border: 1px solid var(--line);
+}
+
+html, body, .card, .btn, .input, .tab {
+  transition:
+    background-color .25s ease,
+    color .25s ease,
+    border-color .25s ease,
+    box-shadow .25s ease;
+}
+
+
 /* ヘッダー右側のボタン置き場 */
 .topbar{
   display:flex;
@@ -304,6 +328,7 @@ html[data-theme="light"] .badge{
 html[data-theme="light"] .divider{
   background: rgba(2,6,23,.08);
 }
+
 
 
 
