@@ -5,6 +5,7 @@ const LS = {
   products: "cashier_products_v1",
   sales: "cashier_sales_v1",
   settings: "cashier_settings_v1",
+    theme: "cashier_theme_v1", // 
 };
 
 const fmtYen = (n) => (Math.round(n)).toLocaleString("ja-JP");
@@ -46,6 +47,36 @@ function computeTotals() {
   const tax = Math.floor(subtotal * taxRate);
   const total = subtotal + tax;
   return { lines, subtotal, tax, total };
+}
+// ---------------- Theme (Light/Dark) ----------------
+const themeToggleBtn = document.getElementById("themeToggle");
+
+function applyTheme(theme) {
+  // theme: "dark" | "light"
+  document.documentElement.dataset.theme = theme;
+  localStorage.setItem(LS.theme, theme);
+
+  if (themeToggleBtn) {
+    themeToggleBtn.textContent = theme === "dark" ? "🌙 ダーク" : "☀️ ライト";
+  }
+}
+
+function initTheme() {
+  const saved = localStorage.getItem(LS.theme);
+  if (saved === "dark" || saved === "light") {
+    applyTheme(saved);
+    return;
+  }
+  // 初回は端末の設定に合わせる
+  const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  applyTheme(prefersDark ? "dark" : "light");
+}
+
+if (themeToggleBtn) {
+  themeToggleBtn.addEventListener("click", () => {
+    const current = document.documentElement.dataset.theme || "dark";
+    applyTheme(current === "dark" ? "light" : "dark");
+  });
 }
 
 // ---------------- Tabs ----------------
@@ -538,7 +569,9 @@ function escapeHtml(s) {
 }
 
 // ---------------- Init ----------------
+initTheme();
 renderSettings();
 renderProducts();
 renderPOS();
 renderHistory();
+
