@@ -235,5 +235,75 @@ h2{margin:0; font-size: 18px;}
   background: rgba(255,255,255,.08);
   margin: 14px 0;
 }
+/* ===== Light theme hard overrides (paste at end) ===== */
+html[data-theme="light"] body{
+  background:
+    radial-gradient(1200px 600px at 30% -10%, rgba(14,165,233,.10), transparent 60%),
+    radial-gradient(900px 500px at 110% 10%, rgba(99,102,241,.08), transparent 60%),
+    var(--bg);
+  color: var(--text);
+}
+
+html[data-theme="light"] .topbar{
+  background: rgba(246,247,251,.75);
+  border-bottom: 1px solid rgba(2,6,23,.08);
+}
+
+html[data-theme="light"] .card{
+  background: rgba(255,255,255,.85);
+  border: 1px solid rgba(2,6,23,.08);
+  box-shadow: var(--shadow);
+}
+
+html[data-theme="light"] .tab{
+  background: rgba(2,6,23,.03);
+  border: 1px solid rgba(2,6,23,.10);
+  color: var(--text);
+}
+
+html[data-theme="light"] .tab.is-active{
+  border-color: rgba(14,165,233,.55);
+  box-shadow: 0 0 0 2px rgba(14,165,233,.12) inset;
+}
+
+html[data-theme="light"] .btn{
+  background: rgba(2,6,23,.04);
+  border: 1px solid rgba(2,6,23,.10);
+  color: var(--text);
+}
+
+html[data-theme="light"] .btn.ghost{
+  background: rgba(2,6,23,.03);
+}
+
+html[data-theme="light"] .btn.primary{
+  border-color: rgba(14,165,233,.55);
+  background: rgba(14,165,233,.12);
+}
+
+html[data-theme="light"] .btn.danger{
+  border-color: rgba(225,29,72,.55);
+  background: rgba(225,29,72,.10);
+}
+
+html[data-theme="light"] .input, 
+html[data-theme="light"] select.input{
+  background: rgba(255,255,255,.85);
+  border: 1px solid rgba(2,6,23,.12);
+  color: var(--text);
+}
+
+html[data-theme="light"] .item,
+html[data-theme="light"] .chip,
+html[data-theme="light"] .badge{
+  background: rgba(2,6,23,.03);
+  border: 1px solid rgba(2,6,23,.10);
+  color: var(--text);
+}
+
+html[data-theme="light"] .divider{
+  background: rgba(2,6,23,.08);
+}
+
 
 
