@@ -1,4 +1,4 @@
-// かんたんレジ PWA v1.0（端末内保存）
+// かんたんレジ PWA v3.0（端末内保存）
 // 保存先：localStorage
 
 const LS = {
@@ -55,6 +55,8 @@ function applyTheme(theme) {
   // theme: "dark" | "light"
   document.documentElement.dataset.theme = theme;
   localStorage.setItem(LS.theme, theme);
+  document.body.style.outline = theme === "light" ? "4px solid #000" : "4px solid #0ff";
+
 
   if (themeToggleBtn) {
     themeToggleBtn.textContent = theme === "dark" ? "🌙 ダーク" : "☀️ ライト";
@@ -574,4 +576,5 @@ renderSettings();
 renderProducts();
 renderPOS();
 renderHistory();
+
 
