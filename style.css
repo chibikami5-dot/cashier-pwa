@@ -1,4 +1,40 @@
 :root{
+  /* Light theme overrides */
+:root[data-theme="light"]{
+  --bg:#f6f7fb;
+  --card:#ffffff;
+  --muted:#5b6473;
+  --text:#0f172a;
+  --line:#d7dbe6;
+  --accent:#0ea5e9;
+  --danger:#e11d48;
+  --shadow: 0 10px 30px rgba(2,6,23,.10);
+}
+
+/* ヘッダー右側のボタン置き場 */
+.topbar{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+@media(min-width: 520px){
+  .topbar{ gap:12px; }
+  .topbar .brand{ margin-bottom:0; }
+  .topbar{
+    padding: 12px 14px 10px;
+  }
+  .topbarRow{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+  }
+}
+
+/* brandとボタンを横並びにするためのラッパー */
+.topbarRow{display:flex; align-items:center; justify-content:space-between; gap:12px;}
+.topActions{display:flex; gap:8px; align-items:center;}
+
   --bg:#0b0c10;
   --card:#12141a;
   --muted:#9aa3b2;
@@ -198,3 +234,4 @@ h2{margin:0; font-size: 18px;}
   background: rgba(255,255,255,.08);
   margin: 14px 0;
 }
+
