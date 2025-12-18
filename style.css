@@ -1,6 +1,5 @@
-:root{
-  /* Light theme overrides */
-:root[data-theme="light"]{
+/* Light theme overrides */
+html[data-theme="light"]{
   --bg:#f6f7fb;
   --card:#ffffff;
   --muted:#5b6473;
@@ -9,6 +8,8 @@
   --accent:#0ea5e9;
   --danger:#e11d48;
   --shadow: 0 10px 30px rgba(2,6,23,.10);
+}
+
 }
 
 /* ヘッダー右側のボタン置き場 */
@@ -234,4 +235,5 @@ h2{margin:0; font-size: 18px;}
   background: rgba(255,255,255,.08);
   margin: 14px 0;
 }
+
 
