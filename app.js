@@ -56,6 +56,14 @@ function applyTheme(theme) {
   document.documentElement.dataset.theme = theme;
   localStorage.setItem(LS.theme, theme);
   document.body.style.outline = theme === "light" ? "4px solid #000" : "4px solid #0ff";
+// デバッグ：ライトなら背景を強制で白っぽくする（CSS関係なく変わる）
+if (theme === "light") {
+  document.body.style.background = "#ffffff";
+  document.body.style.color = "#000000";
+} else {
+  document.body.style.background = "";
+  document.body.style.color = "";
+}
 
 
   if (themeToggleBtn) {
@@ -576,5 +584,6 @@ renderSettings();
 renderProducts();
 renderPOS();
 renderHistory();
+
 
 
