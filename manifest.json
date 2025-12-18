@@ -1,0 +1,23 @@
+{
+  "name": "かんたんレジ",
+  "short_name": "レジ",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0b0c10",
+  "theme_color": "#111111",
+  "icons": [
+    {
+      "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABu0lEQVR4nO2aPU7DQBCGv5pQ0Bq0QGkQWkQH0QJ0QJ0QJ0QJ0QJ0QJ0QK0cQp0p5W0p3bZ8q4k7b7yZc8nGk1mZ2f8gKqg0p5k0k0GJm1uEoYgZbW8KQYx8cQv8x9Qn8Hqk1mQp4O0o0x8E8zjFQ0y6oWmHkC9p2cKc0kq0GQk3a8o4cQkqg1v8f3uGv5bHk9i4mQ2bXyqgQf1oXy4m0cQp8iM0uQbKkT6x0wTj7zC4m2yQwQq8a1oQ0mZ4rQd6w7gqgS2Y2mQ2p8mQzF3gkqj2c5wQy5fQm1qgHn6p4mQh2o0o1oX5cQn1pQn1pQn1pQn1pQn1pQn1pQn1pQn1pQn1pQn1pQn1pQn1pQn1pQn1pQn1pQn1pQn1pQn1pQn1pQn1pQn1pQn1pQn1pQn1pQn1pQn1pQn1pQn1pQn1pQn1pQn1pQn1pQn1pQn1pQn1pQn1pQn1pQn1pQn1pQn1pQn1pQn0pQ9g6mG3pH0dQAAAABJRU5ErkJggg==",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
+{
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "id": "./",
+  "description": "端末内保存で動く、シンプルなレジアプリ"
+}

@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#111111" />
+  <title>かんたんレジ</title>
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="stylesheet" href="./style.css" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="レジ" />
+<link rel="apple-touch-icon" href="./icon-192.png" />
+
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="dot"></div>
+      <div>
+        <div class="title">かんたんレジ</div>
+        <div class="sub">PWA / 端末内保存</div>
+      </div>
+    </div>
+
+    <nav class="tabs" aria-label="画面切り替え">
+      <button class="tab is-active" data-tab="pos">会計</button>
+      <button class="tab" data-tab="products">商品</button>
+      <button class="tab" data-tab="history">履歴</button>
+      <button class="tab" data-tab="settings">設定</button>
+    </nav>
+  </header>
+
+  <main class="container">
+    <!-- POS -->
+    <section class="panel is-active" id="tab-pos">
+      <div class="grid two">
+        <div class="card">
+          <div class="cardHeader">
+            <h2>商品を追加</h2>
+            <div class="hint">商品をタップでカゴに追加</div>
+          </div>
+
+          <div class="row">
+            <input id="posSearch" class="input" placeholder="検索（商品名）" />
+            <button id="clearSearch" class="btn ghost">クリア</button>
+          </div>
+
+          <div id="posProductList" class="list"></div>
+        </div>
+
+        <div class="card">
+          <div class="cardHeader">
+            <h2>カゴ</h2>
+            <div class="hint">数量変更・削除OK</div>
+          </div>
+
+          <div id="cartList" class="list"></div>
+
+          <div class="totals">
+            <div class="line">
+              <span>小計</span><strong id="subtotal">0</strong>
+            </div>
+            <div class="line">
+              <span>税（<span id="taxRateLabel">10%</span>）</span><strong id="tax">0</strong>
+            </div>
+            <div class="line total">
+              <span>合計</span><strong id="total">0</strong>
+            </div>
+          </div>
+
+          <div class="checkout">
+            <div class="row">
+              <input id="cashReceived" class="input" inputmode="numeric" placeholder="お預かり（現金）" />
+              <button id="fillExact" class="btn ghost" title="合計と同額を入力">ちょうど</button>
+            </div>
+            <div class="line">
+              <span>お釣り</span><strong id="change">0</strong>
+            </div>
+            <div class="row">
+              <button id="clearCart" class="btn danger">カゴを空に</button>
+              <button id="completeSale" class="btn primary">会計完了</button>
+            </div>
+            <div id="posMsg" class="msg"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Products -->
+    <section class="panel" id="tab-products">
+      <div class="grid two">
+        <div class="card">
+          <div class="cardHeader">
+            <h2>商品登録</h2>
+            <div class="hint">名前と価格だけでOK</div>
+          </div>
+
+          <form id="productForm" class="form">
+            <input type="hidden" id="productId" />
+            <label class="label">商品名</label>
+            <input id="productName" class="input" placeholder="例：コーヒー" required />
+
+            <label class="label">価格（円）</label>
+            <input id="productPrice" class="input" inputmode="numeric" placeholder="例：450" required />
+
+            <label class="label">カテゴリ（任意）</label>
+            <input id="productCategory" class="input" placeholder="例：ドリンク" />
+
+            <div class="row">
+              <button type="submit" class="btn primary" id="saveProduct">保存</button>
+              <button type="button" class="btn ghost" id="resetForm">リセット</button>
+            </div>
+            <div id="productMsg" class="msg"></div>
+          </form>
+        </div>
+
+        <div class="card">
+          <div class="cardHeader">
+            <h2>商品一覧</h2>
+            <div class="hint">編集／削除ができる</div>
+          </div>
+
+          <div class="row">
+            <input id="productSearch" class="input" placeholder="検索（商品名・カテゴリ）" />
+            <button id="seedDemo" class="btn ghost">サンプル追加</button>
+          </div>
+
+          <div id="productList" class="list"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- History -->
+    <section class="panel" id="tab-history">
+      <div class="card">
+        <div class="cardHeader">
+          <h2>売上履歴</h2>
+          <div class="hint">端末内に保存（CSV出力あり）</div>
+        </div>
+
+        <div class="row wrap">
+          <button id="exportCsv" class="btn primary">CSV出力</button>
+          <button id="clearHistory" class="btn danger">履歴を全削除</button>
+          <div class="spacer"></div>
+          <div class="chip">件数：<span id="saleCount">0</span></div>
+          <div class="chip">合計：<span id="saleSum">0</span></div>
+        </div>
+
+        <div id="historyList" class="list"></div>
+        <div id="historyMsg" class="msg"></div>
+      </div>
+    </section>
+
+    <!-- Settings -->
+    <section class="panel" id="tab-settings">
+      <div class="card">
+        <div class="cardHeader">
+          <h2>設定</h2>
+          <div class="hint">まずは最小構成（必要なら後で拡張）</div>
+        </div>
+
+        <div class="grid two">
+          <div>
+            <label class="label">消費税率</label>
+            <select id="taxRate" class="input">
+              <option value="0.10">10%</option>
+              <option value="0.08">8%</option>
+              <option value="0">0%</option>
+            </select>
+            <div class="note">※このレジは「一律税率」版だよ。軽減税率を商品ごとに分けたい場合は次の拡張で対応できる。</div>
+          </div>
+
+          <div>
+            <label class="label">バックアップ</label>
+            <div class="row wrap">
+              <button id="exportJson" class="btn ghost">データを書き出し（JSON）</button>
+              <label class="btn ghost fileBtn">
+                JSONを読み込み
+                <input id="importJson" type="file" accept="application/json" hidden />
+              </label>
+            </div>
+            <div class="note">端末変更のときに便利。読み込みは上書きになるよ。</div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="row wrap">
+          <div class="chip">バージョン：1.0</div>
+          <div class="chip">保存先：localStorage</div>
+        </div>
+
+        <div id="settingsMsg" class="msg"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>
