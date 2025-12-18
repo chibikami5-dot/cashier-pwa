@@ -56,14 +56,43 @@ function applyTheme(theme) {
   document.documentElement.dataset.theme = theme;
   localStorage.setItem(LS.theme, theme);
   document.body.style.outline = theme === "light" ? "4px solid #000" : "4px solid #0ff";
-// デバッグ：ライトなら背景を強制で白っぽくする（CSS関係なく変わる）
-if (theme === "light") {
-  document.body.style.background = "#ffffff";
-  document.body.style.color = "#000000";
-} else {
-  document.body.style.background = "";
-  document.body.style.color = "";
+function applyTheme(theme) {
+  // theme: "dark" | "light"
+  document.documentElement.dataset.theme = theme;
+  localStorage.setItem(LS.theme, theme);
+
+  // ここが重要：html + body 両方に当てる（iOS/PWA対策）
+  const root = document.documentElement;
+  const body = document.body;
+
+  // まず “完全に上書き” する（背景画像が残ると見た目が変わらないことがある）
+  if (theme === "light") {
+    root.style.backgroundColor = "#ffffff";
+    root.style.backgroundImage = "none";
+    root.style.color = "#000000";
+
+    body.style.backgroundColor = "#ffffff";
+    body.style.backgroundImage = "none";
+    body.style.color = "#000000";
+  } else {
+    // ダークはCSSに戻す（インラインを消す）
+    root.style.backgroundColor = "";
+    root.style.backgroundImage = "";
+    root.style.color = "";
+
+    body.style.backgroundColor = "";
+    body.style.backgroundImage = "";
+    body.style.color = "";
+  }
+
+  // デバッグ枠（必要なら残してOK）
+  body.style.outline = theme === "light" ? "4px solid #000" : "4px solid #0ff";
+
+  if (themeToggleBtn) {
+    themeToggleBtn.textContent = theme === "dark" ? "🌙 ダーク" : "☀️ ライト";
+  }
 }
+
 
 
   if (themeToggleBtn) {
@@ -584,6 +613,7 @@ renderSettings();
 renderProducts();
 renderPOS();
 renderHistory();
+
 
 
 
